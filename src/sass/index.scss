@@ -1,2 +1,113 @@
 @import './common';
 @import './example';
+body{
+    background-color: rgb(233, 233, 238);
+}
+.search {
+    height: 55px;
+    background-color: rgb(83, 83, 246);
+}
+form {
+    padding-top: 5px;
+    position: relative;
+    width: 300px;
+    margin: 0 auto;
+  }
+  input {
+    width: 100%;
+    height: 42px;
+    padding-left: 10px;
+    border: 2px solid #7BA7AB;
+    border-radius: 5px;
+    outline: none;
+    background: #F9F0DA;
+    color: #9E9C9C;
+  }
+  .search-btn {
+    position: absolute; 
+    top: 5px;
+    right: 0px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: #7BA7AB;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+  }
+  .search-btn::before {
+    content: " ";
+    top: 8px;
+    right: 6px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: black;
+    background-image: url(../images/icons8-поиск.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;   
+  }
+  .search-btn:hover{
+    background: #4b8389;
+  }
+  .continer{
+    width: 1200px;
+    padding: 0 15px;
+    margin: 0 auto;
+  }
+  .content-button{
+    background-color: rgb(83, 83, 246);
+    width:150px;
+    height: 35px;
+    border: none;
+    border-radius: 8px;
+  }
+
+//   conteiner 
+.continer{
+    margin-top: 10px;
+}
+.stats{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+.stats-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 0;
+
+}
+.material-icons{
+    margin-right: 5px;
+}
+.stats-item + .stats-item{
+
+    margin-left: 15px;
+}
+.articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    max-width: calc(100vw - 80px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .articles li {
+    height: 100%;
+    overflow: hidden;
+  }
+  .articles img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
