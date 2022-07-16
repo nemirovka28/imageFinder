@@ -1,30 +1,22 @@
 const API_KEY = '28648350-baa268bcab647ae58184a3328';
 const BASE_URL = 'https://pixabay.com/api/?image_type=photo&orientation=horizontal&';
-// https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=что_искать&page=номер_страницы&per_page=12&key=твой_ключ
-// const options = {
-//   headers: {
-//     Authorization: API_KEY,
-//   },
-// };
+
 export default class NewsApiService {
     constructor() {
       this.searchQuery = '';
       this.page = 1;
     }
-
+    
     fetchArticles() {
-      const url = `${BASE_URL}q=${this.searchQuery}&page=${this.page}per_page=12&&key=${API_KEY}`;
+      const url = `${BASE_URL}q=${this.searchQuery}&page=${this.page}per_page=40&&key=${API_KEY}`;
   
       return fetch(url)
         .then(response => response.json())
         .then((data) => {
-          this.incrementPage();
+          this.page += 1;
+          console.log(this.page)
           return data;
-        });
-    }
-  
-    incrementPage() {
-      this.page += 1;
+        })
     }
   
     resetPage() {

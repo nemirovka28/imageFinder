@@ -103,7 +103,10 @@ form {
   }
   .articles li {
     height: 100%;
+  }
+  .img-div{
     overflow: hidden;
+    object-fit: cover;
   }
   .articles img {
     display: block;
@@ -111,3 +114,7 @@ form {
     height: 200px;
     object-fit: cover;
   }
+.img-scale:hover{
+  transition: .3s;
+  transform: scale(1.05);
+}
