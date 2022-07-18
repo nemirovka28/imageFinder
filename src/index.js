@@ -18,17 +18,29 @@ const refs = {
     container: document.querySelector('.gallery'),
     toTopBtn: document.querySelector('.btn__top'),
 };
-
+const newsApiService = new NewsApiService();
 refs.searchForm.addEventListener('submit', onSearch);
-
 refs.toTopBtn.addEventListener('click', onToTopBtn);
+window.addEventListener('scroll', onScroll);
+function onScroll() {
+    const scrolled = window.pageYOffset;
+    const coords = document.documentElement.clientHeight;
+  
+    if (scrolled > coords) {
+        refs.toTopBtn.classList.add('btn__top--visible');
+    }
+    if (scrolled < coords) {
+      refs.toTopBtn.classList.remove('btn__top--visible');
+    }
+  }
 
 function onToTopBtn() {
     if (window.pageYOffset > 0) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
-  onToTopBtn()
+  onScroll();
+  onToTopBtn() ;
 
 function onSearch (e) {
     e.preventDefault();
@@ -36,11 +48,12 @@ function onSearch (e) {
     if(VALUE.length === 0){
         return Notify.warning('Sorry, there are no images matching your search query. Please try again.');
     } ;
+ 
         newsApiService.query = VALUE;
         clearArticlesContainer();
         fetchArticles(); 
 }
-const newsApiService = new NewsApiService();
+
 function fetchArticles() {
     newsApiService.fetchArticles().then(response => {
         if (response.hits.length === 0) {
