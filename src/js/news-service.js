@@ -8,7 +8,7 @@ export default class NewsApiService {
     }
     
     fetchArticles() {
-      const url = `${BASE_URL}q=${this.searchQuery}&page=${this.page}&per_page=20&key=${API_KEY}`;
+      const url = `${BASE_URL}q=${this.searchQuery}&page=${this.page}&per_page=40&key=${API_KEY}`;
       console.log(url)
       return fetch(url)
         .then(response => response.json())

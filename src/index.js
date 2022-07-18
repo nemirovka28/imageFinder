@@ -116,9 +116,9 @@ function renderContent (articles){
       });
 };
 window.addEventListener('scroll', () => {
-    if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight-50){
+    if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight-400){
        return newsApiService.fetchArticles().then(renderNextContent)
-    }
+    } 
 });
 function renderNextContent (articles){
     console.log('Это некст рендер')
