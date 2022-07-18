@@ -5,7 +5,7 @@
   "homepage": "https://github.com/nemirovka28/imageFinder.git",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /imageFinder.git/"
+    "build": "parcel build src/*.html --public-url /imageFinder/src"
   },
   "repository": {
     "type": "git",
