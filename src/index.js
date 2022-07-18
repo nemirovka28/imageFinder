@@ -111,6 +111,9 @@ function renderContent (articles){
         spinner:true,
         uniqueImages:true,
       })
+      gallery.on('closed.simplelightbox', function () {
+        gallery.refresh();
+      });
 };
 window.addEventListener('scroll', () => {
     if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight-50){
