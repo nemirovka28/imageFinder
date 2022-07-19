@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://github.com/nemirovka28/imageFinder",
+  "homepage": "https://nemirovka28.github.io/imageFinder/",
   "scripts": {
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /imageFinder/"
