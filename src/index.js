@@ -1,9 +1,10 @@
 import './sass/index.scss'
+import { onScroll, onToTopBtn } from './js/scroll.js';
 import NewsApiService from './js/news-service.js'
-import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm.js";
-import 'simplelightbox/dist/simple-lightbox.min.css';
+// import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm.js";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import simpleLightbox from 'simplelightbox';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 Notify.init ({
     position: 'center-top',
@@ -12,35 +13,16 @@ Notify.init ({
     cssAnimationStyle: 'from-top',
     showOnlyTheLastOne: true,
 });
-
+let simpleLightbox;
 const refs = {
     searchForm: document.querySelector('.search-form'),
     container: document.querySelector('.gallery'),
-    toTopBtn: document.querySelector('.btn__top'),
 };
 const newsApiService = new NewsApiService();
 refs.searchForm.addEventListener('submit', onSearch);
-refs.toTopBtn.addEventListener('click', onToTopBtn);
-window.addEventListener('scroll', onScroll);
-function onScroll() {
-    const scrolled = window.pageYOffset;
-    const coords = document.documentElement.clientHeight;
-  
-    if (scrolled > coords) {
-        refs.toTopBtn.classList.add('btn__top--visible');
-    }
-    if (scrolled < coords) {
-      refs.toTopBtn.classList.remove('btn__top--visible');
-    }
-  }
 
-function onToTopBtn() {
-    if (window.pageYOffset > 0) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }
   onScroll();
-  onToTopBtn() ;
+  onToTopBtn();
 
 function onSearch (e) {
     e.preventDefault();
@@ -52,8 +34,7 @@ function onSearch (e) {
         newsApiService.query = VALUE;
         clearArticlesContainer();
         fetchArticles(); 
-}
-
+};
 function fetchArticles() {
     newsApiService.fetchArticles().then(response => {
         if (response.hits.length === 0) {
@@ -67,14 +48,13 @@ function fetchArticles() {
     .finally(() => {
         refs.searchForm.reset();
     });
-}
+};
 function appendArticlesMarkup(articles) {
     const totalHits = articles.totalHits;
     Notify.success(`Hooray! We found ${totalHits} images.` );
     renderContent(articles)
 };
 function renderContent (articles){
-    console.log('Это рендер')
     const item = articles.hits;
     const content = item.map( item => {
         return `
@@ -104,16 +84,9 @@ function renderContent (articles){
         </div>
       
         </li>`}).join('')
+
     refs.container.insertAdjacentHTML('beforeend', content);
-   let gallery = new SimpleLightbox(".gallery a", {
-        captionsData: "alt",
-        captionDelay: 250,
-        spinner:true,
-        uniqueImages:true,
-      })
-      gallery.on('closed.simplelightbox', function () {
-        gallery.refresh();
-      });
+    simpleLightBox = new SimpleLightbox('.gallery a').refresh();
 };
 window.addEventListener('scroll', () => {
     if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight-400){
@@ -121,7 +94,7 @@ window.addEventListener('scroll', () => {
     } 
 });
 function renderNextContent (articles){
-    console.log('Это некст рендер')
+    simpleLightBox.destroy();
     const item = articles.hits;
     const content = item.map( item => {
         return `
@@ -152,16 +125,8 @@ function renderNextContent (articles){
       
         </li>`}).join('')
     refs.container.insertAdjacentHTML('beforeend', content);
-   let gallery = new SimpleLightbox(".gallery a", {
-        captionsData: "alt",
-        captionDelay: 250,
-        spinner:true,
-        uniqueImages:true,
-      })
-      gallery.on('closed.simplelightbox', function () {
-        gallery.refresh();
-      });
-}
+    simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+};
 function clearArticlesContainer() {
     refs.container.innerHTML = '';
-}
+};

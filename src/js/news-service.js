@@ -9,12 +9,10 @@ export default class NewsApiService {
     
     fetchArticles() {
       const url = `${BASE_URL}q=${this.searchQuery}&page=${this.page}&per_page=40&key=${API_KEY}`;
-      console.log(url)
       return fetch(url)
         .then(response => response.json())
         .then((data) => {
           this.page += 1;
-          console.log(this.page)
           return data;
         })
     }
